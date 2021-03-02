@@ -1,23 +1,28 @@
+// libraries
 const express = require("express");
 const path = require('path');
 const fs = require('fs');
 const app = express();
 
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
+// Port to use; need to later add dynamic port for heroku
 const port = 8080;
 
-// Home Page 
+// Home Page | /
 app.get('/', (req, res) => res.sendFile(
     path.join(__dirname, '/public/index.html')
 ));
 
-// Note Taking Page 
+// Note Page | /notes
 app.get('/notes', (req, res) => res.sendFile(
     path.join(__dirname, '/public/notes.html')
 ));
 
 
-// --- JSON | Read JSON DB file then send to URL
+// JSON Page | /api/notes
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
@@ -26,6 +31,26 @@ app.get('/api/notes', (req, res) => {
         }
         return res.json(JSON.parse(data));
     })
+});
+
+// POST / /api/notes
+app.post('/api/notes', (req, res) => {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    const newNote = req.body;
+    let result = true;
+
+    // Read in the current JSON file
+    let json = require('./db/db.json');
+    json.push(newNote);
+
+    fs.writeFile('./db/db.json', JSON.stringify(json), function (err) {
+        if (err) return console.log(err);
+        console.log(`The error is: ${err}`);
+        result = false;
+    });
+
+    res.send(result);
 });
 
 app.use(express.static(__dirname + "/public"));
