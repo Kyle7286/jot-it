@@ -1,4 +1,2 @@
-.node_modules/
-.DS_Store/
-INSTRUCTIONS.md
-src/
+node_modules
+.gt
