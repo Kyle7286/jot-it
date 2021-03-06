@@ -53,6 +53,21 @@ app.post('/api/notes', (req, res) => {
     res.send(result);
 });
 
+// DELETE | Delete note
+app.post('/api/notes/:id', (req, res) => {
+    const note = req.params.id;
+  
+    console.log(note);
+
+  
+    return res.json(false);
+  });
+
+
+
+
+
+
 app.use(express.static(__dirname + "/public"));
 
 // Listening Server
