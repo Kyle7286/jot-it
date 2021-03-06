@@ -12,11 +12,11 @@
 ---
 The purpose of this application is to provide a platform for jotting down notes and saving them into a database.
 
-## Installation
+## Installation 💽
 ---
 `npm i` to install all libraries required to run this application.
 
-## How to Use
+## How to Use ✔️
 ---
 1. visit `https://fathomless-bayou-56028.herokuapp.com/`
 2. Click `Get started`
@@ -27,10 +27,11 @@ The purpose of this application is to provide a platform for jotting down notes 
 --- 
 * Learned how to deploy to heroku
 * Gained more experience with routing
+* Learned how to handle delete requests
 
 ## Screenshot/Gif 📊
 ---
-
+![Gif](./.gh/md/jot-it.gif)
 
 ## Thank you 👍 
 ---
