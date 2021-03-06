@@ -21,7 +21,6 @@ app.get('/notes', (req, res) => res.sendFile(
     path.join(__dirname, '/public/notes.html')
 ));
 
-
 // JSON Page | /api/notes
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -42,6 +41,7 @@ app.post('/api/notes', (req, res) => {
 
     // Read in the current JSON file
     let json = require('./db/db.json');
+    newNote.id = json.length + 1
     json.push(newNote);
 
     fs.writeFile('./db/db.json', JSON.stringify(json), function (err) {
@@ -54,19 +54,23 @@ app.post('/api/notes', (req, res) => {
 });
 
 // DELETE | Delete note
-app.post('/api/notes/:id', (req, res) => {
-    const note = req.params.id;
-  
-    console.log(note);
+app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    let result = true;
 
-  
-    return res.json(false);
-  });
+    // Read in the current JSON file
+    let json = require('./db/db.json');
+    // remove the element at index id-1
+    json.splice((id - 1), 1)
+    // Write the new json string to db
+    fs.writeFile('./db/db.json', JSON.stringify(json), function (err) {
+        if (err) return console.log(err);
+        result = false;
+    });
 
-
-
-
-
+    res.json("Delete is successful!");
+    return result;
+});
 
 app.use(express.static(__dirname + "/public"));
 
