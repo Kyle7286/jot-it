@@ -18,11 +18,6 @@ The purpose of this application is to provide a platform for jotting down notes 
 ## How to Use
 ---
 
-
-## Testing
----
-`npm run test` to run all tests for all modules
-
 ## Takeaways 🥡
 --- 
 
